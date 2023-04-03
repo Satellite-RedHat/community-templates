@@ -1,0 +1,14 @@
+<%#
+name: fips_packages
+description: Used to adjusts packages in Kickstart template on FIPS enabled OS.
+snippet: true
+model: ProvisioningTemplate
+organizations:
+- RedHat
+- Test
+- ved_test
+locations:
+- GSS
+-%>
+dracut-fips
+-prelink

@@ -1,0 +1,42 @@
+<%#
+name: Run remediation plan via Leapp
+snippet: false
+template_inputs:
+- name: remediation_ids
+  required: true
+  input_type: user
+  description: List of remediation ids
+  advanced: true
+  value_type: plain
+  hidden_value: false
+- name: run_preupgrade
+  required: true
+  input_type: user
+  description: Run preupgrade check again when remediation entries are fixed.
+  options: |-
+    true
+    false
+  advanced: false
+  value_type: plain
+  default: 'true'
+  hidden_value: false
+model: JobTemplate
+job_category: Other
+description_format: Run remediation plan via Leapp
+provider_type: SSH
+kind: job_template
+organizations:
+- RedHat
+- Test
+- ved_test
+locations:
+- GSS
+- Test
+%>
+
+<%= render_template 'Check Leapp' %>
+
+<%= build_remediation_plan(input('remediation_ids').split(','), @host) %>
+<% if input('run_preupgrade') == 'true' %>
+  <%= render_template 'Run preupgrade via Leapp' %>
+<% end %>

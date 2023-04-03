@@ -1,0 +1,24 @@
+<%#
+name: Run preupgrade via Leapp
+snippet: false
+model: JobTemplate
+job_category: Leapp - Preupgrade
+description_format: Upgradeability check for RHEL 7 host
+provider_type: SSH
+kind: job_template
+organizations:
+- RedHat
+- Test
+- ved_test
+locations:
+- GSS
+- Test
+%>
+
+<%= render_template 'Check Leapp' %>
+
+rm -f /var/log/leapp/leapp-report.json
+leapp preupgrade
+
+echo "===leap_upgrade_report_start==="
+cat /var/log/leapp/leapp-report.json

@@ -1,0 +1,20 @@
+<%#
+name: test
+snippet: false
+model: ReportTemplate
+-%>
+<%- report_headers 'Name', 'Ip', 'Operating System', 'Subscriptions', 'Applicable Errata', 'Owner', 'Kernel', 'Kernel Installed Date', 'Latest kernel available' -%>
+<%- load_hosts(), includes: [:operatingsystem, :subscriptions, :interfaces, :applicable_errata], preload: [:kernel_release, :owner]).each_record do |host| -%>
+<%-   report_row(
+        'Name': host.name,
+        'Ip': host.ip,
+        'Operating System': host.operatingsystem,
+        'Subscriptions': host_subscriptions_names(host),
+        'Applicable Errata': host_applicable_errata_ids(host),
+        'Owner': host.owner,
+        'Kernel': host_kernel_release(host),
+        'Kernel Installed Date': host.facts['kernel_installed_date'],
+        'Latest kernel available': host_latest_applicable_rpm_version(host, 'kernel')
+      ) -%>
+<%- end -%>
+<%= report_render -%>

@@ -1,0 +1,19 @@
+<%#
+name: AutoYaST entire virtual disk
+snippet: false
+model: Ptable
+os_family: Suse
+organizations:
+- RedHat
+- Test
+- ved_test
+locations:
+- GSS
+- Test
+-%>
+  <partitioning  config:type="list">
+    <drive>
+      <device>/dev/vda</device>
+      <use>all</use>
+    </drive>
+  </partitioning>

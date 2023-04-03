@@ -1,0 +1,23 @@
+<%#
+name: Service Action - Enable Web Console
+snippet: false
+model: JobTemplate
+job_category: Ansible Services
+provider_type: Ansible
+kind: job_template
+organizations:
+- RedHat
+- Test
+- ved_test
+locations:
+- GSS
+- Test
+%>
+
+---
+- hosts: all
+  tasks:
+  - name: ensure cockpit is installed
+    package:
+      name: "cockpit-system"
+      state: present
